@@ -1,0 +1,12 @@
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\bin\Debug\netcoreapp3.1\EmailTrack.Repository.deps.json
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\bin\Debug\netcoreapp3.1\EmailTrack.Repository.dll
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\bin\Debug\netcoreapp3.1\EmailTrack.Repository.pdb
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\bin\Debug\netcoreapp3.1\EmailTrack.Core.dll
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\bin\Debug\netcoreapp3.1\EmailTrack.Core.pdb
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.csprojAssemblyReference.cache
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.AssemblyInfoInputs.cache
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.AssemblyInfo.cs
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.csproj.CoreCompileInputs.cache
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.csproj.CopyComplete
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.dll
+C:\Users\ThabaniTembe\Desktop\Personal Projects\Email.Repository\obj\Debug\netcoreapp3.1\EmailTrack.Repository.pdb
