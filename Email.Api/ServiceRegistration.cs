@@ -11,9 +11,9 @@ namespace EmailTracker.Api
         public static void AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<ILabelRepository, LabelRepository>();
- 
+            services.AddTransient<IEmailRepository, EmailRepository>();
             services.AddTransient<ILabelService, LabelService>();
-         
+            services.AddTransient<IEmailService, EmailService>();
         }
     }
 }
