@@ -1,5 +1,6 @@
 ﻿using EmailTracker.Repository.IRepositories;
 using EmailTracker.Service.IServices;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EmailTracker.Service.Services
@@ -20,6 +21,11 @@ namespace EmailTracker.Service.Services
         public Task DeleteEmail(int emailId)
         {
             return emailRepository.Delete(emailId);
+        }
+
+        public Task<IEnumerable<Core.Models.Email>> GetAllEmailsBySenderEmailAddress(string senderEmailAddress)
+        {
+            return emailRepository.GetAllEmailsByEmailAddress(senderEmailAddress);
         }
     }
 }

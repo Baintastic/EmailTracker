@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmailTracker.Service.IServices
 {
@@ -6,5 +7,6 @@ namespace EmailTracker.Service.IServices
     {
         Task SendEmail(Core.Models.Email email);
         Task DeleteEmail(int emailId);
+        Task<IEnumerable<Core.Models.Email>> GetAllEmailsBySenderEmailAddress(string senderEmailAddres);
     }
 }

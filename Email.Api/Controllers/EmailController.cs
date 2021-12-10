@@ -11,9 +11,9 @@ namespace EmailTrack.Api.Controllers
     public class EmailController : Controller
     {
         private readonly IEmailService emailService;
-        public EmailController(IEmailService labelService)
+        public EmailController(IEmailService emailService)
         {
-            this.emailService = labelService;
+            this.emailService = emailService;
         }
 
         [HttpPost]
@@ -23,11 +23,19 @@ namespace EmailTrack.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmail(int labelId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEmail(int emailId)
         {
-            await emailService.DeleteEmail(labelId);
+            await emailService.DeleteEmail(emailId);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllEmailsBySenderEmailAddress(string senderEmailAddress)
+        {
+            var data = await emailService.GetAllEmailsBySenderEmailAddress(senderEmailAddress);
+            if (data == null) return Ok();
+            return Ok(data);
         }
     }
 }

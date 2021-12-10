@@ -24,7 +24,7 @@ namespace EmailTrack.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteLabel(int labelId)
         {
             await labelService.DeleteLabel(labelId);

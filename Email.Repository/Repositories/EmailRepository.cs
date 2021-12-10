@@ -1,7 +1,10 @@
 ﻿using Dapper;
 using EmailTracker.Repository.IRepositories;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmailTracker.Repository.Repositories
@@ -17,31 +20,34 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Add(Core.Models.Email entity)
         {
-            var sql = "Insert into [dbo].Email (Sender, Receiver, Subject, Body, Cc, Bcc, IsArchived, CreatedOnDate) VALUES (@Sender, @Receiver, @Subject, @Body, @Cc, @Bcc, @IsArchived, @CreatedOnDate)";
-            using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync<Core.Models.Email>(sql, entity);
+            var sql = "Insert into [dbo].Email (Sender, Receiver, EmailSubject, Body, Cc, Bcc, IsArchived, CreatedOnDate) VALUES (@Sender, @Receiver, @EmailSubject, @Body, @Cc, @Bcc, @IsArchived, @CreatedOnDate)";
+            using IDbConnection connection  = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+            connection.Open();
+            await connection.ExecuteAsync(sql, entity);
+            connection.Close();
         }
 
         public async Task Delete(int id)
         {
             var sql = "UPDATE [dbo].Email SET IsArchived = 1 WHERE Id = @Id";
             using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync(sql, new { Id = id });
+            connection.Open();
+            await connection.ExecuteAsync(sql, new { Id = id });
+            connection.Close();
         }
 
-        public async Task GetDeletedEmail(int id)
+        public async Task<IEnumerable<Core.Models.Email>> GetAllEmailsByEmailAddress(string senderEmailAddress)
         {
-            var sql = "GET * FROM [dbo].Email SET WHERE Id = @Id AND IsArchived = 1";
-            using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync(sql, new { Id = id });
+            var sql = "SELECT * FROM [dbo].Email WHERE Sender = @Sender";
+            using IDbConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+            connection.Open();
+            var result = await connection.QueryAsync<Core.Models.Email>(sql, new { Sender = senderEmailAddress });
+            connection.Close();
+
+            return result.ToList();
         }
 
-        public async Task Undelete(int id)
-        {
-            var sql = "UPDATE [dbo].Email SET IsArchived = 0 WHERE Id = @Id";
-            using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync(sql, new { Id = id });
-        }
+       
 
     }
 }

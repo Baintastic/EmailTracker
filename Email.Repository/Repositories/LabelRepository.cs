@@ -20,14 +20,18 @@ namespace EmailTracker.Repository.Repositories
         {
             var sql = "Insert into [dbo].Label (LabelName, CreatedOnDate) VALUES (@LabelName, @CreatedOnDate)";
             using var connection =  new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync<LabelField>(sql, entity);
+            connection.Open();
+            await connection.ExecuteAsync(sql, entity);
+            connection.Close();
         }
 
         public async Task Delete(int id)
         {
             var sql = "DELETE FROM [dbo].Label WHERE Id = @Id";
             using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            await connection.QueryAsync(sql, new { Id = id });
+            connection.Open();
+            await connection.ExecuteAsync(sql, new { Id = id });
+            connection.Close();
         }
     }
 }
