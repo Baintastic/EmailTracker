@@ -5,7 +5,7 @@ namespace EmailTracker.Service.IServices
 {
     public interface ILabelService
     {
-        Task CreateLabel(LabelField label);
+        Task CreateLabel(Label label);
         Task DeleteLabel(int labelId);
     }
 }

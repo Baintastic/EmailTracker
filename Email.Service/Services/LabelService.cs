@@ -13,7 +13,7 @@ namespace EmailTracker.Service.Services
             this.labelRepository = labelRepository;
         }
 
-        public Task CreateLabel(LabelField label)
+        public Task CreateLabel(Label label)
         {
             return labelRepository.Add(label);
         }

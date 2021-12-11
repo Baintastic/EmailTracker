@@ -30,10 +30,33 @@ namespace EmailTrack.Api.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllEmailsBySenderEmailAddress(string senderEmailAddress)
+        [HttpGet("sender")]
+        public async Task<IActionResult> GetAllEmailsBySenderEmailAddress(string emailAddress)
         {
-            var data = await emailService.GetAllEmailsBySenderEmailAddress(senderEmailAddress);
+            var data = await emailService.GetAllEmailsBySenderEmailAddress(emailAddress);
+            if (data == null) return Ok();
+            return Ok(data);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UndeleteEmail(int emailId)
+        {
+            await emailService.UndeleteEmail(emailId);
+            return Ok();
+        }
+
+        [HttpGet("archived")]
+        public async Task<IActionResult> GetAllDeletedEmails()
+        {
+            var data = await emailService.GetAllDeletedEmails();
+            if (data == null) return Ok();
+            return Ok(data);
+        }
+
+        [HttpGet("label")]
+        public async Task<IActionResult> GetAllEmailsByLabel(string labelName)
+        {
+            var data = await emailService.GetAllEmailsByLabel(labelName);
             if (data == null) return Ok();
             return Ok(data);
         }

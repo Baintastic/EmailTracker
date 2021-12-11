@@ -18,7 +18,7 @@ namespace EmailTrack.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateLabel(LabelField label)
+        public async Task<IActionResult> CreateLabel(Label label)
         {
             await labelService.CreateLabel(label);
             return Ok();

@@ -16,7 +16,7 @@ namespace EmailTracker.Repository.Repositories
             this.configuration = configuration;
         }
 
-        public async Task Add(LabelField entity)
+        public async Task Add(Label entity)
         {
             var sql = "Insert into [dbo].Label (LabelName, CreatedOnDate) VALUES (@LabelName, @CreatedOnDate)";
             using var connection =  new SqlConnection(configuration.GetConnectionString("DefaultConnection"));

@@ -27,5 +27,20 @@ namespace EmailTracker.Service.Services
         {
             return emailRepository.GetAllEmailsByEmailAddress(senderEmailAddress);
         }
+
+        public Task UndeleteEmail(int emailId)
+        {
+            return emailRepository.UndeleteEmailById(emailId);
+        }
+
+        public Task<IEnumerable<Core.Models.Email>> GetAllDeletedEmails()
+        {
+            return emailRepository.GetAllDeletedEmails();
+        }
+
+        public Task<IEnumerable<Core.Models.Email>> GetAllEmailsByLabel(string labelName)
+        {
+            return emailRepository.GetAllEmailsByLabelName(labelName);
+        }
     }
 }
