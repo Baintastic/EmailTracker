@@ -12,8 +12,10 @@ namespace EmailTracker.Api
         {
             services.AddTransient<ILabelRepository, LabelRepository>();
             services.AddTransient<IEmailRepository, EmailRepository>();
+            services.AddTransient<ILabelEmailRepository, LabelEmailRepository>();
             services.AddTransient<ILabelService, LabelService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ILabelEmailService, LabelEmailService>();
         }
     }
 }
