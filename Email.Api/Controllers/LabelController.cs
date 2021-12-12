@@ -30,5 +30,21 @@ namespace EmailTrack.Api.Controllers
             await labelService.DeleteLabel(labelId);
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLabelById(int id)
+        {
+            var data = await labelService.GetLabelById(id);
+            if (data == null) return Ok();
+            return Ok(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllLabels()
+        {
+            var data = await labelService.GetAllLabels();
+            if (data == null) return Ok();
+            return Ok(data);
+        }
     }
 }
