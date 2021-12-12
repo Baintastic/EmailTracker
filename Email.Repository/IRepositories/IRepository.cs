@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmailTracker.Repository.IRepositories
 {
@@ -6,5 +7,7 @@ namespace EmailTracker.Repository.IRepositories
     {
         Task Add(T entity);
         Task Delete(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> GetById(int id);
     }
 }

@@ -1,8 +1,11 @@
 ﻿using EmailTracker.Core;
+using System.Threading.Tasks;
 
 namespace EmailTracker.Repository.IRepositories
 {
-    public interface ILabelEmailRepository : IRepository<LabelEmail>
+    public interface ILabelEmailRepository
     {
+        Task Add(LabelEmail entity);
+        Task Delete(int id);
     }
 }

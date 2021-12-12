@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace EmailTracker.Api.Controllers
 {
     [EnableCors("AllowAll")]
-    [Route("api/[controller]")]
+    [Route("api/email")]
     [ApiController]
     public class LabelEmailController : Controller
     {
@@ -17,15 +17,15 @@ namespace EmailTracker.Api.Controllers
             this.labelEmailService = labelFieldEmailService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateLabel(LabelEmail labelledEmail)
+        [HttpPost("assign-label")]
+        public async Task<IActionResult> AddLabelToEmail(LabelEmail labelledEmail)
         {
             await labelEmailService.AddLabelToEmail(labelledEmail);
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteLabel(int labelEmailId)
+        [HttpPost("unassign-label")]
+        public async Task<IActionResult> RemoveLabelFromEmail(int labelEmailId)
         {
             await labelEmailService.RemoveLabelFromEmail(labelEmailId);
             return Ok();

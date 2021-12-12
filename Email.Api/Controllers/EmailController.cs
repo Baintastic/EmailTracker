@@ -1,4 +1,5 @@
-﻿using EmailTracker.Service.IServices;
+﻿using EmailTracker.Core.Models;
+using EmailTracker.Service.IServices;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,46 +18,46 @@ namespace EmailTrack.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendEmail(EmailTracker.Core.Models.Email email)
+        public async Task<IActionResult> SendEmail(Email email)
         {
             await emailService.SendEmail(email);
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteEmail(int emailId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmail(int id)
         {
-            await emailService.DeleteEmail(emailId);
+            await emailService.DeleteEmail(id);
             return Ok();
         }
 
-        [HttpGet("sender")]
-        public async Task<IActionResult> GetAllEmailsBySenderEmailAddress(string emailAddress)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UndeleteEmail(int id)
         {
-            var data = await emailService.GetAllEmailsBySenderEmailAddress(emailAddress);
+            await emailService.UndeleteEmail(id);
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmailById(int id)
+        {
+            var data = await emailService.GetEmailById(id);
             if (data == null) return Ok();
             return Ok(data);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UndeleteEmail(int emailId)
+        [HttpGet]
+        public async Task<IActionResult> GetAllEmails()
         {
-            await emailService.UndeleteEmail(emailId);
-            return Ok();
-        }
-
-        [HttpGet("archived")]
-        public async Task<IActionResult> GetAllDeletedEmails()
-        {
-            var data = await emailService.GetAllDeletedEmails();
+            var data = await emailService.GetAllEmails();
             if (data == null) return Ok();
             return Ok(data);
         }
 
-        [HttpGet("label")]
-        public async Task<IActionResult> GetAllEmailsByLabel(string labelName)
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(string labelName, bool? isArchived, string fromAddress )
         {
-            var data = await emailService.GetAllEmailsByLabel(labelName);
+            var data = await emailService.FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(labelName, isArchived, fromAddress);
             if (data == null) return Ok();
             return Ok(data);
         }
