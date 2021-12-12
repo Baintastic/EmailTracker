@@ -12,77 +12,13 @@ namespace EmailTracker.Service.Tests
     public class EmailServiceTests
     {
         private IEmailRepository _emailRepository;
+        private List<Email> _emails;
 
         [SetUp]
         public void SetUp()
         {
             _emailRepository = Substitute.For<IEmailRepository>();
-        }
-
-        [Test]
-        public async Task GetAllEmails_ShouldReturnAllEmails()
-        {
-            //Arrange
-            var service = GetEmailService();
-            List<Email> emails = CreateFakeEmails();
-
-            //Act
-            _emailRepository.GetAll().Returns(emails);
-            var actualResult = await service.GetAllEmails();
-
-            //Assert
-            Assert.AreEqual(emails, actualResult);
-        }
-
-       
-
-        [Test]
-        public async Task GetLabelById_ShouldReturnLabel()
-        {
-            //Arrange
-            var service = new EmailService(_emailRepository); 
-            var emailId = 1;
-            var email = new Email
-            {
-                FromAddress = "info@companyb.co",
-                ToAddress = "lola@gmail.com",
-                EmailSubject = "",
-                Body = "",
-                Cc = "",
-                Bcc = "",
-                IsArchived = true,
-            };
-
-            //Act
-            _emailRepository.GetById(emailId).Returns(email);
-            var actualResult = await service.GetEmailById(emailId);
-
-            //Assert
-            Assert.AreEqual(email, actualResult);
-        }
-
-
-        [Test]
-        public async Task FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress_ShouldReturnAllEmails()
-        {
-            //Arrange
-            var service = GetEmailService();
-            string labelName = null;
-            bool? isArchived = null;
-            string fromEmailAddress = null;
-            var emails = CreateFakeEmails();
-
-            //Act
-            _emailRepository.FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(labelName, isArchived, fromEmailAddress).Returns(emails);
-            var actualResult = await service.FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(labelName, isArchived, fromEmailAddress);
-
-            //Assert
-            Assert.AreEqual(emails, actualResult);
-        }
-
-        private static List<Email> CreateFakeEmails()
-        {
-            return new List<Email>
+            _emails = new List<Email>
             {
                 new Email
                 {
@@ -107,7 +43,63 @@ namespace EmailTracker.Service.Tests
             };
         }
 
-        private EmailService GetEmailService()
+        [Test]
+        public async Task GetAllEmails_ShouldReturnAllEmails()
+        {
+            //Arrange
+            var sut = CreateSUT();
+            _emailRepository.GetAll().Returns(_emails);
+
+            //Act
+            var actual = await sut.GetAllEmails();
+
+            //Assert
+            Assert.AreEqual(_emails, actual);
+        }
+
+        [Test]
+        public async Task GetLabelById_ShouldReturnLabel()
+        {
+            //Arrange
+            var sut = CreateSUT();
+            var emailId = 1;
+            var email = new Email
+            {
+                FromAddress = "info@companyb.co",
+                ToAddress = "lola@gmail.com",
+                EmailSubject = "",
+                Body = "",
+                Cc = "",
+                Bcc = "",
+                IsArchived = true,
+            };
+            _emailRepository.GetById(emailId).Returns(email);
+
+            //Act
+            var actual = await sut.GetEmailById(emailId);
+
+            //Assert
+            Assert.AreEqual(email, actual);
+        }
+
+        [Test]
+        public async Task FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress_ShouldReturnFilteredEmails()
+        {
+            //Arrange
+            var sut = CreateSUT();
+            string labelName = "Important";
+            bool? isArchived = null;
+            string fromEmailAddress = null;
+            _emailRepository.FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(labelName, isArchived, fromEmailAddress).Returns(_emails);
+
+            //Act
+            var actual = await sut.FilterEmailsByLabelNameArchivedStatusOrFromEmailAddress(labelName, isArchived, fromEmailAddress);
+
+            //Assert
+            Assert.AreEqual(_emails, actual);
+        }
+
+        private EmailService CreateSUT()
         {
             return new EmailService(_emailRepository);
         }

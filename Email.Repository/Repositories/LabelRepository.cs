@@ -29,7 +29,8 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Delete(int id)
         {
-            var sql = "DELETE FROM [dbo].Label WHERE Id = @Id";
+            var sql = "DELETE FROM LabelEmail WHERE LabelId = @Id" +
+                "DELETE FROM [dbo].Label WHERE Id = @Id";
             using var connection = GetSqlConnection();
             connection.Open();
             await connection.ExecuteAsync(sql, new { Id = id });

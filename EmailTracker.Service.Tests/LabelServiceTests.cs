@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace EmailTracker.Service.Tests
 {
+    [TestFixture]
     public class LabelServiceTests
     {
         private ILabelRepository _labelRepository;
@@ -23,9 +24,7 @@ namespace EmailTracker.Service.Tests
         public async Task GetAllLabels_ShouldReturnAllLabels()
         {
             //Arrange
-            var service = GetLabelService();
-
-            //Act
+            var sut = CreateSUT();
             List<Label> labels = new List<Label>
             {
                 new Label
@@ -34,12 +33,13 @@ namespace EmailTracker.Service.Tests
                     CreatedOnDate = new DateTime()
                 },
             };
-
             _labelRepository.GetAll().Returns(labels);
-            var actualResult = await service.GetAllLabels();
+
+            //Act
+            var actual = await sut.GetAllLabels();
 
             //Assert
-            Assert.AreEqual(labels, actualResult);
+            Assert.AreEqual(labels, actual);
         }
 
 
@@ -47,24 +47,23 @@ namespace EmailTracker.Service.Tests
         public async Task GetLabelById_ShouldReturnLabel()
         {
             //Arrange
-            var service = new LabelService(_labelRepository);
-
-            //Act
+            var sut = CreateSUT();
             var labelId = 1;
             var label = new Label
             {
                 LabelName = "Important",
                 CreatedOnDate = new DateTime()
             };
-
             _labelRepository.GetById(labelId).Returns(label);
-            var actualResult = await service.GetLabelById(labelId);
+
+            //Act
+            var actual = await sut.GetLabelById(labelId);
 
             //Assert
-            Assert.AreEqual(label, actualResult);
+            Assert.AreEqual(label, actual);
         }
 
-        private LabelService GetLabelService()
+        private LabelService CreateSUT()
         {
             return new LabelService(_labelRepository);
         }
