@@ -24,10 +24,10 @@ namespace EmailTracker.Api.Controllers
             return Ok();
         }
 
-        [HttpPost("unassign-label")]
-        public async Task<IActionResult> RemoveLabelFromEmail(int labelEmailId)
+        [HttpDelete("unassign-label")]
+        public async Task<IActionResult> RemoveLabelFromEmail(int labelId, int emailId)
         {
-            await labelEmailService.RemoveLabelFromEmail(labelEmailId);
+            await labelEmailService.RemoveLabelFromEmail(labelId, emailId);
             return Ok();
         }
     }

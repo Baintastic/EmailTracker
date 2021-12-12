@@ -20,7 +20,8 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Add(Label entity)
         {
-            var sql = "Insert into [dbo].Label (LabelName, CreatedOnDate) VALUES (@LabelName, @CreatedOnDate)";
+            var sql = "IF NOT EXISTS (SELECT LabelName FROM [dbo].[Label] WHERE LabelName = @LabelName) " +
+                     "INSERT INTO [dbo].Label (LabelName, CreatedOnDate) VALUES (@LabelName, @CreatedOnDate)";
             using var connection = GetSqlConnection();
             connection.Open();
             await connection.ExecuteAsync(sql, entity);
@@ -29,7 +30,8 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Delete(int id)
         {
-            var sql = "DELETE FROM LabelEmail WHERE LabelId = @Id" +
+            var sql = "IF EXISTS (SELECT Id FROM [dbo].[Label] WHERE Id = @Id) " +
+                "DELETE FROM LabelEmail WHERE LabelId = @Id " +
                 "DELETE FROM [dbo].Label WHERE Id = @Id";
             using var connection = GetSqlConnection();
             connection.Open();

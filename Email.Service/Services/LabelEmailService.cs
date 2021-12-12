@@ -18,9 +18,9 @@ namespace EmailTracker.Service.Services
             return labelEmailRepository.Add(labelledEmail);
         }
 
-        public Task RemoveLabelFromEmail(int labelEmailId)
+        public Task RemoveLabelFromEmail(int labelEmailId, int emailId)
         {
-            return labelEmailRepository.Delete(labelEmailId);
+            return labelEmailRepository.Delete(labelEmailId, emailId);
         }
     }
 }

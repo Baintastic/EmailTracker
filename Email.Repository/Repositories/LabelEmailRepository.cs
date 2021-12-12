@@ -18,16 +18,18 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Add(LabelEmail labelledEmail)
         {
-            var sql = "Insert into [dbo].LabelEmail (LabelId, EmailId, CreatedOnDate) VALUES (@LabelId, @EmailId, @CreatedOnDate)";
+            var sql = "IF NOT EXISTS (SELECT Id FROM [dbo].[LabelEmail] WHERE LabelId = @LabelId AND EmailId = @EmailId) " +
+                "INSERT INTO [dbo].LabelEmail (LabelId, EmailId, CreatedOnDate) VALUES (@LabelId, @EmailId, @CreatedOnDate)";
             using var connection = GetSqlConnection();
-            await connection.QueryAsync<LabelEmail>(sql, labelledEmail);
+            await connection.QueryAsync<LabelEmail>(sql, new { LabelId = labelledEmail.LabelId, EmailId = labelledEmail.EmailId, CreatedOnDate = labelledEmail.CreatedOnDate });
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int labelId, int emailId)
         {
-            var sql = "DELETE FROM [dbo].LabelEmail WHERE Id = @Id";
+            var sql = "IF EXISTS (SELECT Id FROM [dbo].[LabelEmail] WHERE LabelId = @LabelId AND EmailId = @EmailId) " +
+                "DELETE FROM [dbo].LabelEmail WHERE EmailId = @EmailId AND LabelId = @LabelId";
             using var connection = GetSqlConnection();
-            await connection.QueryAsync(sql, new { Id = id });
+            await connection.QueryAsync(sql, new { LabelId = labelId, EmailId = emailId });
         }
 
         private SqlConnection GetSqlConnection()

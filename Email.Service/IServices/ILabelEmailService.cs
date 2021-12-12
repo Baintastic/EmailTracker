@@ -7,6 +7,6 @@ namespace EmailTracker.Service.IServices
     {
         Task AddLabelToEmail(LabelEmail labelledEmail);
 
-        Task RemoveLabelFromEmail(int labelEmailId);
+        Task RemoveLabelFromEmail(int labelEmailId, int emailId);
     }
 }

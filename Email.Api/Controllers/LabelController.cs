@@ -24,10 +24,10 @@ namespace EmailTrack.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteLabel(int labelId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLabel(int id)
         {
-            await labelService.DeleteLabel(labelId);
+            await labelService.DeleteLabel(id);
             return Ok();
         }
 

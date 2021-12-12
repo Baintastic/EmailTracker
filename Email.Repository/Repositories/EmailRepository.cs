@@ -20,7 +20,7 @@ namespace EmailTracker.Repository.Repositories
 
         public async Task Add(Email entity)
         {
-            var sql = "Insert into [dbo].Email (FromAddress, ToAddress, EmailSubject, Body, Cc, Bcc, IsArchived, CreatedOnDate) VALUES (@FromAddress, @ToAddress, @EmailSubject, @Body, @Cc, @Bcc, @IsArchived, @CreatedOnDate)";
+            var sql = "INSERT INTO [dbo].Email (FromAddress, ToAddress, EmailSubject, Body, Cc, Bcc, IsArchived, CreatedOnDate) VALUES (@FromAddress, @ToAddress, @EmailSubject, @Body, @Cc, @Bcc, @IsArchived, @CreatedOnDate)";
             using var connection = GetSqlConnection();
             connection.Open();
             await connection.ExecuteAsync(sql, entity);
