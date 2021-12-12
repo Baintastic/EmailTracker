@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2021-12-11T01:17:36.9209137Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2021-12-11T01:19:09.0648076Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "6b081f9c-41a0-4ac0-8df2-19ac6ef52545"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "EmailTrackerApi20211211014900ResourceGroup"
+    }
+  }
+}
