@@ -1,5 +1,5 @@
 # EmailTracker
-Email api that keeps track of imaginary inboxes <br /> <br />
+Email api that keeps track of imaginary inboxes <br />  <br />
 
 
 ## 1.Running the API 
